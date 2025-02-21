@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
+use App\Models\Category;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -11,7 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('product.index');
+        return view('product.index', [
+            'products' => Product::with('categories')->get(),
+        ]);
     }
 
     /**
@@ -19,46 +24,55 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create', [
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $product = Product::create($request->validated());
+        return route('products.show', $product->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        return view('product.show', [
+           'product' => $product,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        return view('product.edit', [
+            'product' => $product,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Product $product)
     {
-        //
+        $product->update($request->validated());
+        return route('products.show', $product->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return route('products.index');
     }
 }
