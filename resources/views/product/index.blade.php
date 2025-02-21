@@ -23,7 +23,7 @@
                 <tr>
                     <th scope="row">{{ $product->id }}</th>
                     <td><a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a></td>
-                    <td>{{ $product->price }}</td>
+                    <td>{{ $product->getPrice() }}</td>
                     <td>{{ $product->category->title }}</td>
                     <td>
                         <a href="{{ route('products.edit', $product->id) }}"

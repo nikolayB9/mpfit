@@ -51,7 +51,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: {{ $product->id }}</li>
                 <li class="list-group-item">Название: {{ $product->name }}</li>
-                <li class="list-group-item">Цена: {{ $product->price }}</li>
+                <li class="list-group-item">Цена: {{ $product->getPrice() }}</li>
                 <li class="list-group-item">Категория: {{ $product->category->title }}</li>
                 <li class="list-group-item">Описание: {{ $product->description }}</li>
             </ul>

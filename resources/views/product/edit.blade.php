@@ -29,7 +29,7 @@
                     <input type="number"
                            class="form-control @error('price') is-invalid @enderror"
                            name="price"
-                           value="{{ old('price') ?? $product->price }}"
+                           value="{{ old('price') ?? $product->getPrice() }}"
                            id="price"
                            step="0.01"
                            min="0"

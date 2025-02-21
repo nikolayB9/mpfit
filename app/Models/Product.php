@@ -12,4 +12,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function getPrice(): string
+    {
+        return number_format($this->price, 2, '.', '');
+    }
 }
