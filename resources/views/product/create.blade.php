@@ -10,7 +10,7 @@
                 <div class="form-group mb-3">
                     <label for="name" class="mb-1">Название</label>
                     <input type="text"
-                           class="form-control @error('name') 'is-invalid' @enderror"
+                           class="form-control @error('name') is-invalid @enderror"
                            name="name"
                            value="{{ old('name') }}"
                            id="name"
@@ -25,7 +25,7 @@
                 <div class="form-group mb-3">
                     <label for="price" class="mb-1">Цена</label>
                     <input type="number"
-                           class="form-control @error('price') 'is-invalid' @enderror"
+                           class="form-control @error('price') is-invalid @enderror"
                            name="price"
                            value="{{ old('price') ?? 0 }}"
                            id="price"
@@ -42,7 +42,7 @@
                 <div class="form-group mb-3">
                     <label for="description" class="mb-1">Описание</label>
                     <textarea
-                        class="form-control @error('description') 'is-invalid' @enderror"
+                        class="form-control @error('description') is-invalid @enderror"
                         name="description"
                         id="description"
                         rows="5">{{ old('description') }}</textarea>
@@ -56,7 +56,7 @@
                 <div class="form-group mb-3">
                     <label for="category_id" class="mb-1">Категория</label>
                     <select name="category_id"
-                            class="form-select @error('category_id') 'is-invalid' @enderror"
+                            class="form-select @error('category_id') is-invalid @enderror"
                             id="category_id">
                         @foreach($categories as $category)
                             <option

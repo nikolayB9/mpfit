@@ -11,8 +11,8 @@
         </a>
         <!-- Button trigger modal delete product -->
         <button class="btn btn-danger btn-sm"
-                data-toggle="modal"
-                data-target="#modal-delete-product{{ $product->id }}">
+                data-bs-toggle="modal"
+                data-bs-target="#modal-delete-product{{ $product->id }}">
             Удалить
         </button>
 

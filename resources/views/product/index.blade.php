@@ -22,7 +22,7 @@
             @foreach($products as $product)
                 <tr>
                     <th scope="row">{{ $product->id }}</th>
-                    <td>{{ $product->name }}</td>
+                    <td><a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a></td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->category->title }}</td>
                     <td>
@@ -32,8 +32,8 @@
                         </a>
                         <!-- Button trigger modal delete product -->
                         <button class="btn btn-danger btn-sm"
-                                data-toggle="modal"
-                                data-target="#modal-delete-product{{ $product->id }}">
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal-delete-product{{ $product->id }}">
                             Удалить
                         </button>
                     </td>

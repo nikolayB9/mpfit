@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('product.index', [
-            'products' => Product::with('categories')->get(),
+            'products' => Product::with('category')->get(),
         ]);
     }
 
@@ -35,7 +35,7 @@ class ProductController extends Controller
     public function store(StoreRequest $request)
     {
         $product = Product::create($request->validated());
-        return route('products.show', $product->id);
+        return redirect()->route('products.show', $product->id);
     }
 
     /**
@@ -55,6 +55,7 @@ class ProductController extends Controller
     {
         return view('product.edit', [
             'product' => $product,
+            'categories' => Category::all(),
         ]);
     }
 
@@ -64,7 +65,7 @@ class ProductController extends Controller
     public function update(UpdateRequest $request, Product $product)
     {
         $product->update($request->validated());
-        return route('products.show', $product->id);
+        return redirect()->route('products.show', $product->id);
     }
 
     /**
@@ -73,6 +74,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return route('products.index');
+        return redirect()->route('products.index');
     }
 }
