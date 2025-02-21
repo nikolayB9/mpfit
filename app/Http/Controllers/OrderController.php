@@ -7,7 +7,6 @@ use App\Http\Requests\Order\StoreRequest;
 use App\Http\Requests\Order\UpdateStatusRequest;
 use App\Models\Order;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -70,13 +69,5 @@ class OrderController extends Controller
            'status' => $request->validated('status'),
         ]);
         return redirect()->route('orders.edit', $order->id)->with('status', 'Статус обновлен');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
