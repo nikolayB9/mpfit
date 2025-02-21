@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Order\StatusEnum;
+use App\Http\Requests\Order\StoreRequest;
+use App\Http\Requests\Order\UpdateStatusRequest;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -11,7 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('order.index', [
+            'orders' => Order::all(),
+        ]);
     }
 
     /**
@@ -19,39 +26,50 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('order.create', [
+            'products' => Product::all(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
-    }
+        $data = $request->validated();
+        $product = Product::find($data['product_id']);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $order = Order::create([
+            'full_user_name' => $data['full_user_name'],
+            'product_id' => $data['product_id'],
+            'qty' => $data['qty'],
+            'comment' => $data['comment'],
+            'product_price' => $product->price,
+            'total_price' => $data['qty'] * $product->price,
+        ]);
+        return redirect()->route('orders.edit', $order->id);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Order $order)
     {
-        //
+        return view('order.edit', [
+            'order' => $order,
+            'statuses' => StatusEnum::asSelectArray(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateStatus(UpdateStatusRequest $request, Order $order)
     {
-        //
+        $order->update([
+           'status' => $request->validated('status'),
+        ]);
+        return redirect()->route('orders.edit', $order->id)->with('status', 'Статус обновлен');
     }
 
     /**

@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\Order;
 
-use App\Models\Product;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +22,10 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique(Product::class)->ignore(request()->product)],
-            'price' => ['required', 'decimal:0,2', 'gte:0.01'],
-            'description' => ['nullable', 'string'],
-            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'product_id' => ['required', 'integer', 'exists:products,id'],
+            'full_user_name' => ['required', 'string', 'regex:/^([А-Я]{1}[а-я]+\s?){3}$/u'],
+            'qty' => ['required', 'integer', 'gte:1'],
+            'comment' => ['nullable', 'string', 'max:255'],
         ];
     }
 }
